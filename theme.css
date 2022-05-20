@@ -1,0 +1,30 @@
+@import url(https://fonts.googleapis.com/css?family=Fira+Sans:400,700,400italic);
+@import url(https://fonts.googleapis.com/css?family=Fira+Code:400,700,400italic);
+
+body { font-family: 'Fira Sans'; }
+h1, h2, h3 {
+    font-weight: normal;
+    color: #5499c7  
+}
+.remark-code, .remark-inline-code { font-family: 'Fira Code'; }
+
+.remark-slide-content {
+    font-size: 24px;
+}
+
+.remark-slide-content h2 {
+  font-size: 24px;
+}
+
+.remark-slide-content h3 {
+  font-size: 20px;
+}
+
+.remark-slide-content h3 {
+  font-size: 18px;
+}
+
+.remark-slide-number {
+  font-size: 12px;
+  opacity: 0.5;
+}
