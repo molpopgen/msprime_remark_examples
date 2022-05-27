@@ -34,20 +34,23 @@ denom = np.sum([1/i for i in range(1, 2*nsamples)])
 
 div = ts.diversity(windows=wins, mode="branch") / N
 segsites = ts.segregating_sites(windows=wins, mode="branch") / denom / N
+ymax = max(div.max(), segsites.max()) * 1.05
 `);
     // turn float64array into normal array
     var position = [].slice.call(pyodide.globals.get('mids').toJs());
     var div = [].slice.call(pyodide.globals.get('div').toJs());
     var segs = [].slice.call(pyodide.globals.get('segsites').toJs());
+    var ymax = pyodide.globals.get('ymax')
     dataobj = position.map(function(x, i) {
-        return { "position": x, "statistic": div[i], "label": "diversity" }
+        return { "position": x, "statistic": div[i], "label": "π" }
     }.bind(this));
 
-    segs.map(function(seg, i) { dataobj.push({ "position": position[i], "statistic": seg, "label": "seg. sites" }); });
+    segs.map(function(seg, i) { dataobj.push({ "position": position[i], "statistic": seg, "label": "θ" }); });
 
     var options = {
         height: 500,
         width: 500,
+        y: { domain: [0, ymax] },
         marks: [Plot.dot(dataobj, { x: "position", y: "statistic", stroke: "label", title: d => `position: ${d.position}\nstat: ${d.label}\nvalue: ${d.statistic}`, fill: "label", fillOpacity: 0.5 })]
     };
     document.getElementById("hardsweep").appendChild(Plot.plot(options))
