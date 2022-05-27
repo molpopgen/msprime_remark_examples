@@ -1,4 +1,4 @@
-async function make_heterozygosity_plot(pyodide) {
+function make_heterozygosity_plot(pyodide) {
     pyodide.runPython(`
               import msprime
               import numpy

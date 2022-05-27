@@ -1,4 +1,4 @@
-async function msprime_treeseq(pyodide) {
+function msprime_treeseq(pyodide) {
     svg = pyodide.runPython(`
               import msprime
               ts = msprime.sim_ancestry(5)
