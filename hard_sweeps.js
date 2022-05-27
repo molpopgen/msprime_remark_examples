@@ -18,18 +18,22 @@ sweep = msprime.SweepGenicSelection(
 
 hudson = msprime.StandardCoalescent()
 
+nsamples = 50
+
 ts = msprime.sim_ancestry(
-    50, model=[sweep, hudson], recombination_rate=RHO / 4.0 / N / L, sequence_length=L,
+    nsamples, model=[sweep, hudson], recombination_rate=RHO / 4.0 / N / L, sequence_length=L,
     population_size=N
 )
 
 # ts = msprime.sim_mutations(ts, discrete_genome=False, rate = RHO/4./N/L)
 
-wins = np.linspace(0.0, L, 100)
+wins = np.linspace(0.0, L, 250)
 mids = (wins[1:] + wins[:-1]) / 2
 
-div = ts.diversity(windows=wins, mode="branch")
-segsites = ts.segregating_sites(windows=wins, mode="branch")
+denom = np.sum([1/i for i in range(1, 2*nsamples)]) 
+
+div = ts.diversity(windows=wins, mode="branch") / N
+segsites = ts.segregating_sites(windows=wins, mode="branch") / denom / N
 `);
     // turn float64array into normal array
     var position = [].slice.call(pyodide.globals.get('mids').toJs());
@@ -44,7 +48,7 @@ segsites = ts.segregating_sites(windows=wins, mode="branch")
     var options = {
         height: 500,
         width: 500,
-        marks: [Plot.line(dataobj, { x: "position", y: "statistic", stroke: "label", title: "label" })]
+        marks: [Plot.dot(dataobj, { x: "position", y: "statistic", stroke: "label", title: d => `position: ${d.position}\nstat: ${d.label}\nvalue: ${d.statistic}`, fill: "label", fillOpacity: 0.5 })]
     };
     document.getElementById("hardsweep").appendChild(Plot.plot(options))
 }
