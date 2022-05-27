@@ -63,5 +63,15 @@ Never
     <script src="msprime_treeseq.js"></script>
     <script src="msprime_diversity.js"></script>
 
+    <script>
+    async function do_the_work() {
+        var pyodide = await loadPyodide({indexURL: "https://cdn.jsdelivr.net/pyodide/dev/full/"});
+        await pyodide.loadPackage(["msprime", "numpy"]);
+        make_heterozygosity_plot(pyodide);
+        msprime_treeseq(pyodide);
+    };
+    do_the_work();
+    </script>
+
   </body>
 </html>
