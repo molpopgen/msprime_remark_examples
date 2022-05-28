@@ -1,4 +1,4 @@
-function hard_sweep(pyodide) {
+function hard_sweep(pyodide, rho, location) {
     pyodide.runPython(`
 import msprime
 import numpy as np
@@ -6,7 +6,7 @@ import numpy as np
 L = 1e6
 N = 1e4
 ALPHA = 1e3
-RHO = ALPHA*10.
+RHO = ${rho}
 
 sweep = msprime.SweepGenicSelection(
     position=L / 2.0,
@@ -48,10 +48,10 @@ ymax = max(div.max(), segsites.max()) * 1.05
     segs.map(function(seg, i) { dataobj.push({ "position": position[i], "statistic": seg, "label": "θ" }); });
 
     var options = {
-        height: 500,
+        height: 300,
         width: 500,
         y: { domain: [0, ymax] },
         marks: [Plot.dot(dataobj, { x: "position", y: "statistic", stroke: "label", title: d => `position: ${d.position}\nstat: ${d.label}\nvalue: ${d.statistic}`, fill: "label", fillOpacity: 0.5 })]
     };
-    document.getElementById("hardsweep").appendChild(Plot.plot(options))
+    document.getElementById(location).appendChild(Plot.plot(options))
 }

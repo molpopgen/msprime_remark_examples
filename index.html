@@ -44,9 +44,12 @@ Never
 - π = mean no. pairwise differences (orange).
 - θ = Watterson's estimator (blue).
 - θ > π means Tajima's D is *negative*
+- top: r = 10s
+- bottom: r = s
 ]
 .right-column-66[
-<figure id="hardsweep" height=500 width=500></figure>
+<figure id="hardsweep" height=250 width=500></figure>
+<figure id="hardsweep2" height=250 width=500></figure>
 ]
 
     </textarea>
@@ -83,7 +86,8 @@ Never
         await pyodide.loadPackage(["msprime", "numpy"]);
         make_heterozygosity_plot(pyodide);
         msprime_treeseq(pyodide);
-        hard_sweep(pyodide);
+        hard_sweep(pyodide, 10000.0, "hardsweep");
+        hard_sweep(pyodide, 1000.0, "hardsweep2");
     };
     do_the_work();
     </script>
